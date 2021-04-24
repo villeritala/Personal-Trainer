@@ -23,9 +23,9 @@ function Trainings() {
         .catch(err => console.error(err))
     }
 
-    const deleteTraining = (url) => {
+    const deleteTraining = (id) => {
         if (window.confirm('Are you sure?')){
-            fetch(url, {method: 'DELETE'})
+            fetch('https://customerrest.herokuapp.com/api/trainings/' + id, {method: 'DELETE'})
             .then(response => {
                 if(response.ok) {
                     setMessage('Training deleted!');
@@ -50,15 +50,14 @@ function Trainings() {
     const column = [
         { 
             headerName: '',
-            field: 'links[0].href',
+            field: 'id',
             width: 100,
+            sortable: true, 
+            filter: true,
             cellRendererFramework: params => 
             <IconButton color="secondary" onClick={() => deleteTraining(params.value)}>
                 <DeleteIcon/>
             </IconButton>
-        },
-        { 
-            field: 'id', sortable: true, filter: true 
         },
         { 
             field: 'date', sortable: true, filter: true, width: 250, 
@@ -70,6 +69,19 @@ function Trainings() {
         { 
             field: 'activity', sortable: true, filter: true 
         },
+        {
+            headerName: 'Firstname',
+            field: 'customer.firstname',
+            sortable: true, 
+            filter: true
+        },
+        {
+            headerName: 'Lastname',
+            field: 'customer.lastname',
+            sortable: true, 
+            filter: true
+        }
+
     ]
 
     return (

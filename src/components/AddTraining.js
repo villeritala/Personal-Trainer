@@ -12,7 +12,7 @@ function AddTraining(props) {
         date: '', 
         activity: '',
         duration: '',
-        customer: ''
+        customer: props.customerId
     })
 
     const handleClickOpen = () => {
@@ -58,7 +58,7 @@ function AddTraining(props) {
             />
             <TextField
                 margin="dense"
-                label="Duration"
+                label="Duration (min)"
                 name="duration"
                 value={training.duration}
                 onChange={inputChanged}

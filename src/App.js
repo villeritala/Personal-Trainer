@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Customers from './components/Customers';
 import Trainings from './components/Trainings';
+import Calendar from './components/Calendar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
 
 function App() {
   const [value, setValue] = useState('one');
@@ -24,12 +26,13 @@ function App() {
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Customers" value="one" />
           <Tab label="Trainings" value="two" />
+          <Tab label="Calendar" value="three" />
       </Tabs>
       </Toolbar>
     </AppBar>
     {value==='one' && <div><Customers/></div>}
     {value==='two'&& <div><Trainings/></div>}
-
+    {value==='three'&& <div><Calendar/></div>}
   </div>
   );
 }

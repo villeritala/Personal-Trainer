@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
@@ -27,6 +26,7 @@ function Customers() {
     }
 
     const deleteCustomer = (url) => {
+        console.log(url);
         if (window.confirm('Are you sure?')){
             fetch(url, {method: 'DELETE'})
             .then(response => {
@@ -49,8 +49,11 @@ function Customers() {
             headers: { 'Content-Type': 'application/json' }
         })
         .then(response => {
-            if (response.ok)
+            if (response.ok) {
+                setMessage('Customer added!');
+                openSnackbar();
                 fetchCustomers();
+            }
             else
                 alert('Something went wrong');
         })
@@ -75,20 +78,18 @@ function Customers() {
         .catch(err => console.log(err));
     }
 
-    const addTraining = () => {
-        fetch('https://customerrest.herokuapp.com/api/customers', {
+    const addTraining = (newTraining) => {
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
             method: 'POST',
-            body: {
-                "date":  "2018-1-1",
-                "activity": "Spinning",
-                "duration": "50",
-                "customer" : "https://localhost:8080/api/customers/2"
-            }, 
+            body: JSON.stringify(newTraining), 
             headers: { 'Content-Type': 'application/json' }
         })
         .then(response => {
-            if (response.ok)
+            if (response.ok) {
+                setMessage('Training added successfully!')
+                openSnackbar();
                 fetchCustomers();
+            }
             else
                 alert('Something went wrong');
         })
@@ -106,8 +107,8 @@ function Customers() {
     const column = [
         { 
             headerName: '',
-            field: 'links[0].href',
-            width: 100,
+            field: 'links.0.href',
+            width: 80,
             cellRendererFramework: params => 
             <IconButton color="secondary" onClick={() => deleteCustomer(params.value)}>
                 <DeleteIcon/>
@@ -115,17 +116,22 @@ function Customers() {
         },
         {
             headerName: '', 
-            field: 'links[0].href',
-            width: 100, 
+            field: 'links.0.href',
+            width: 80, 
             cellRendererFramework: params  =>
             <EditCustomer link={params.value} customer={params.data} editCustomer={editCustomer}/>
         },
         {
             headerName:'',
-            field: 'links[0].href',
+            field: 'links.0.href',
             width: 150,
             cellRendererFramework: params  =>
-            <AddTraining link={params.value} training={params.data} addTraining={addTraining}/>
+            <AddTraining 
+                link={params.value} 
+                training={params.data} 
+                addTraining={addTraining}
+                customerId={'links.0.href'}
+            />
         },
         { field: 'firstname', sortable: true, filter: true, width: 150 },
         { field: 'lastname', sortable: true, filter: true, width: 170},
