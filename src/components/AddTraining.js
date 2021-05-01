@@ -26,7 +26,7 @@ function AddTraining(props) {
     };
 
     const handleSave = () => {
-        props.addTraining({...training, date: training.date.toISOString()});
+        props.addTraining(training);
         setOpen(false);
     }
 
@@ -35,7 +35,12 @@ function AddTraining(props) {
     }
 
     const [selectedDate, handleDateChange] = useState(new Date());
-
+    
+    const yourChangeDateFunc = (date) => {
+        handleDateChange(date);
+        const formatDate = date.toISOString();
+        setTraining({...training, date: formatDate});
+    }
 
     return (
         <div>
@@ -51,7 +56,7 @@ function AddTraining(props) {
                     margin="dense" 
                     value={selectedDate} 
                     name="date" 
-                    onChange={handleDateChange} 
+                    onChange={date => yourChangeDateFunc(date)}
                 />
             </MuiPickersUtilsProvider>
             <TextField
