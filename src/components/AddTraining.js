@@ -26,7 +26,7 @@ function AddTraining(props) {
     };
 
     const handleSave = () => {
-        props.addTraining(training);
+        props.addTraining({...training, date: training.date.toISOString()});
         setOpen(false);
     }
 
@@ -35,6 +35,7 @@ function AddTraining(props) {
     }
 
     const [selectedDate, handleDateChange] = useState(new Date());
+
 
     return (
         <div>

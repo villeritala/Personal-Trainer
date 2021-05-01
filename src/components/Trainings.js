@@ -61,7 +61,7 @@ function Trainings() {
         },
         { 
             field: 'date', sortable: true, filter: true, width: 250, 
-            cellRenderer: (data) => { return moment(data.date).format('MM/DD/YYYY HH:mm')}
+            cellRenderer: params => { return moment(params.value).format('DD/MM/YYYY HH:mm')}
         },
         { 
             field: 'duration', sortable: true, filter: true 
