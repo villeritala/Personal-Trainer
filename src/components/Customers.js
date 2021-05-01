@@ -130,7 +130,7 @@ function Customers() {
                 link={params.value} 
                 training={params.data} 
                 addTraining={addTraining}
-                customerId={'links.0.href'}
+                customerId={params.value}
             />
         },
         { field: 'firstname', sortable: true, filter: true, width: 150 },
