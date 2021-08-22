@@ -1,4 +1,4 @@
-# App on Heroku
+# The app on Heroku
 https://vrptapp.herokuapp.com/
 
 # Getting Started with Create React App
